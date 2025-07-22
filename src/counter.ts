@@ -1,9 +1,12 @@
-export function setupCounter(element: HTMLButtonElement) {
-  let counter = 0
-  const setCounter = (count: number) => {
-    counter = count
-    element.innerHTML = `count is ${counter}`
-  }
-  element.addEventListener('click', () => setCounter(counter + 1))
-  setCounter(0)
+import { debounce } from "./debounce";
+
+export default function setupCounter(button: HTMLButtonElement) {
+  let count = 0;
+  const update = () => {
+    count++;
+    button.innerText = `Count: ${count}`;
+  };
+
+  button.addEventListener("click", debounce(update, 300));
+  button.innerText = `Count: ${count}`;
 }
